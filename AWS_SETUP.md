@@ -187,10 +187,7 @@ Go to your repo **Settings → Secrets and variables → Actions**
 1. Go to **Configuration → Function URL**
 2. Click **Create function URL**
 3. Auth type: **NONE**
-4. Configure CORS:
-   - Allow origin: `https://reseralabs.com`
-   - Allow methods: `POST`
-   - Allow headers: `Content-Type`
+4. **Leave CORS unconfigured** (empty) - the Lambda code handles CORS headers
 5. Click **Save**
 
 Copy the **Function URL** (e.g., `https://abc123.lambda-url.us-east-1.on.aws/`)
