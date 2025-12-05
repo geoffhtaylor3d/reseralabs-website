@@ -32,6 +32,7 @@ jobs:
         run: bun run build
         env:
           VITE_SUBSCRIBE_API_URL: ${{ vars.SUBSCRIBE_API_URL }}
+          VITE_CONTACT_API_URL: ${{ vars.CONTACT_API_URL }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4

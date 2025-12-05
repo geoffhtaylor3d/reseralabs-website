@@ -197,8 +197,64 @@ Copy the **Function URL** (e.g., `https://abc123.lambda-url.us-east-1.on.aws/`)
 | Name | Value |
 |------|-------|
 | `SUBSCRIBE_API_URL` | Your Lambda Function URL |
+| `CONTACT_API_URL` | Your Contact Lambda Function URL |
 
-## 8. Custom Domain (Optional)
+## 8. Lambda for Contact Form (SES)
+
+### Verify Email in SES
+
+1. Go to **SES → Verified identities → Create identity**
+2. Choose **Email address** and enter `contact@reseralabs.com`
+3. Click the verification link sent to that email
+4. (Optional) Verify your domain for production sending
+
+> **Note:** If your SES account is in sandbox mode, you can only send to verified email addresses. Request production access for sending to any email.
+
+### Create the Lambda Function
+
+1. Go to **Lambda → Create function**
+2. Function name: `reseralabs-contact`
+3. Runtime: **Node.js 20.x**
+4. Architecture: **arm64**
+5. Click **Create function**
+
+6. In the **Code** tab, copy the contents of `lambda/contact.js` from this repo
+
+7. Go to **Configuration → Environment variables**, add:
+   - `FROM_EMAIL`: `noreply@reseralabs.com` (must be SES verified)
+
+8. Go to **Configuration → General configuration**, set timeout to **10 seconds**
+
+### Add SES Permissions to Lambda
+
+1. Go to **Configuration → Permissions**
+2. Click on the execution role
+3. Add an **inline policy**:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "ses:SendEmail",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+### Create Function URL
+
+1. Go to **Configuration → Function URL**
+2. Click **Create function URL**
+3. Auth type: **NONE**
+4. **Leave CORS unconfigured** (empty) - the Lambda code handles CORS headers
+5. Click **Save**
+
+Copy the **Function URL** and add it to GitHub Variables as `CONTACT_API_URL`.
+
+## 9. Custom Domain (Optional)
 
 1. **Request ACM certificate** in **us-east-1**:
    - Go to ACM → Request certificate
@@ -232,3 +288,5 @@ aws cloudfront create-invalidation --distribution-id YOUR_DIST_ID --paths "/*"
 - [ ] IAM role with trust policy and deploy permissions
 - [ ] GitHub secrets/variables configured
 - [ ] (Optional) Custom domain with ACM certificate
+- [ ] SES email verified for contact form
+- [ ] Contact Lambda function created with SES permissions

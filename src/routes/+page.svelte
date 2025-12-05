@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import config from '$lib/emailoctopus-config.json';
 	import Dropdown from '$lib/components/Dropdown.svelte';
 
@@ -7,6 +8,7 @@
 	let mouseX = $state(0);
 	let mouseY = $state(0);
 	let showModal = $state(false);
+	let showContactModal = $state(false);
 	
 	let email = $state('');
 	let firstName = $state('');
@@ -19,11 +21,49 @@
 	let submitting = $state(false);
 	let error = $state('');
 
+	let contactName = $state('');
+	let contactEmail = $state('');
+	let contactCompany = $state('');
+	let contactJobTitle = $state('');
+	let contactOrgType = $state('');
+	let contactIndustry = $state('');
+	let contactMessage = $state('');
+	let contactSubmitting = $state(false);
+	let contactError = $state('');
+
 	const orgTypes = config.fields.find(f => f.tag === 'OrganizationType')?.choices || [];
 	const industries = config.fields.find(f => f.tag === 'Industry')?.choices || [];
 
+	const STORAGE_KEY = 'reseralabs-signup-form';
+
+	function saveFormState() {
+		const data = { email, firstName, lastName, company, jobTitle, organizationType, industry, contactPermission, showModal };
+		sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+	}
+
+	function loadFormState() {
+		const saved = sessionStorage.getItem(STORAGE_KEY);
+		if (saved) {
+			const data = JSON.parse(saved);
+			email = data.email || '';
+			firstName = data.firstName || '';
+			lastName = data.lastName || '';
+			company = data.company || '';
+			jobTitle = data.jobTitle || '';
+			organizationType = data.organizationType || '';
+			industry = data.industry || '';
+			contactPermission = data.contactPermission || '';
+			showModal = data.showModal || false;
+		}
+	}
+
+	function clearFormState() {
+		sessionStorage.removeItem(STORAGE_KEY);
+	}
+
 	onMount(() => {
 		mounted = true;
+		loadFormState();
 		
 		const handleMouseMove = (e: MouseEvent) => {
 			mouseX = e.clientX;
@@ -38,10 +78,56 @@
 
 	function openModal() {
 		showModal = true;
+		saveFormState();
 	}
 
 	function closeModal() {
 		showModal = false;
+		clearFormState();
+	}
+
+	function openContactModal() {
+		showContactModal = true;
+	}
+
+	function closeContactModal() {
+		showContactModal = false;
+	}
+
+	async function handleContactSubmit(e: Event) {
+		e.preventDefault();
+		contactSubmitting = true;
+		contactError = '';
+
+		try {
+			const res = await fetch(import.meta.env.VITE_CONTACT_API_URL, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: contactName,
+					email: contactEmail,
+					company: contactCompany,
+					jobTitle: contactJobTitle,
+					organizationType: contactOrgType,
+					industry: contactIndustry,
+					message: contactMessage
+				})
+			});
+
+			const data = await res.json();
+
+			if (!res.ok) {
+				contactError = data.error || 'Something went wrong. Please try again.';
+				contactSubmitting = false;
+				return;
+			}
+
+			goto('/contact-success');
+		} catch {
+			contactError = 'Something went wrong. Please try again.';
+		} finally {
+			contactSubmitting = false;
+		}
 	}
 
 	async function handleSubmit(e: Event) {
@@ -73,7 +159,8 @@
 				return;
 			}
 
-			window.location.href = '/thank-you.html';
+			clearFormState();
+			goto('/thank-you');
 		} catch {
 			error = 'Something went wrong. Please try again.';
 			submitting = false;
@@ -211,6 +298,8 @@
 		<div class="mt-2 flex justify-center gap-4">
 			<a href="/privacy" class="text-zinc-500 hover:text-zinc-300 transition-colors">Privacy</a>
 			<a href="/terms" class="text-zinc-500 hover:text-zinc-300 transition-colors">Terms</a>
+			<button onclick={openContactModal} class="text-zinc-500 hover:text-zinc-300 transition-colors">Contact</button>
+			<a href="/investors" class="text-zinc-500 hover:text-zinc-300 transition-colors">Investors</a>
 		</div>
 	</footer>
 </div>
@@ -353,8 +442,141 @@
 					</div>
 
 					<p class="text-xs text-zinc-500 text-center pt-2">
-						By subscribing, you agree to our <a href="/privacy" class="text-indigo-400 hover:underline">Privacy Policy</a> and <a href="/terms" class="text-indigo-400 hover:underline">Terms</a>.
+						By subscribing, you agree to our <a href="/privacy" onclick={saveFormState} class="text-indigo-400 hover:underline">Privacy Policy</a> and <a href="/terms" onclick={saveFormState} class="text-indigo-400 hover:underline">Terms</a>.
 					</p>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}
+
+{#if showContactModal}
+	<div 
+		class="fixed inset-0 z-50 overflow-y-auto"
+		role="dialog"
+		aria-modal="true"
+	>
+		<div class="min-h-full flex items-center justify-center p-4">
+			<div 
+				class="fixed inset-0 bg-black/80 backdrop-blur-sm"
+			></div>
+			
+			<div class="relative w-full max-w-2xl transform transition-all my-8">
+				<div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 rounded-2xl blur-lg opacity-40"></div>
+				
+				<div class="relative bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8">
+				<button
+					onclick={closeContactModal}
+					class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors"
+					aria-label="Close"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+
+				<h2 class="text-2xl font-bold text-white mb-2">Get in Touch</h2>
+				<p class="text-zinc-400 mb-6">Have a question? We'd love to hear from you.</p>
+
+				<form onsubmit={handleContactSubmit} class="space-y-4">
+					<div>
+						<label for="contactName" class="block text-sm text-zinc-400 mb-1.5">Name<span class="text-red-400/70 ml-0.5">*</span></label>
+						<input
+							id="contactName"
+							type="text"
+							bind:value={contactName}
+							required
+							class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+						/>
+					</div>
+
+					<div>
+						<label for="contactEmail" class="block text-sm text-zinc-400 mb-1.5">Email address<span class="text-red-400/70 ml-0.5">*</span></label>
+						<input
+							id="contactEmail"
+							type="email"
+							bind:value={contactEmail}
+							required
+							class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+						/>
+					</div>
+
+					<div>
+						<label for="contactCompany" class="block text-sm text-zinc-400 mb-1.5">Company<span class="text-red-400/70 ml-0.5">*</span></label>
+						<input
+							id="contactCompany"
+							type="text"
+							bind:value={contactCompany}
+							required
+							class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+						/>
+					</div>
+
+					<div>
+						<label for="contactJobTitle" class="block text-sm text-zinc-400 mb-1.5">Job Title<span class="text-red-400/70 ml-0.5">*</span></label>
+						<input
+							id="contactJobTitle"
+							type="text"
+							bind:value={contactJobTitle}
+							required
+							class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+						/>
+					</div>
+
+					<Dropdown
+						label="Organization Type"
+						placeholder="Select organization type"
+						options={orgTypes}
+						value={contactOrgType}
+						onchange={(v) => contactOrgType = v}
+						required
+					/>
+
+					<Dropdown
+						label="Industry"
+						placeholder="Select industry"
+						options={industries}
+						value={contactIndustry}
+						onchange={(v) => contactIndustry = v}
+						required
+					/>
+
+					<div>
+						<label for="contactMessage" class="block text-sm text-zinc-400 mb-1.5">Message<span class="text-red-400/70 ml-0.5">*</span></label>
+						<textarea
+							id="contactMessage"
+							bind:value={contactMessage}
+							required
+							rows="6"
+							class="w-full min-h-[150px] px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none"
+						></textarea>
+					</div>
+
+					{#if contactError}
+						<p class="text-red-400 text-sm">{contactError}</p>
+					{/if}
+
+					<div class="pt-2">
+						<div class="group relative">
+							<div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
+							<button
+								type="submit"
+								disabled={contactSubmitting}
+								class="relative w-full flex items-center justify-center gap-2 px-8 py-4 bg-zinc-950 rounded-lg font-medium text-white hover:bg-zinc-900 transition-colors disabled:opacity-50"
+							>
+								{#if contactSubmitting}
+									<svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+										<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+										<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									</svg>
+									Sending...
+								{:else}
+									Send Message
+								{/if}
+							</button>
+						</div>
+					</div>
 				</form>
 				</div>
 			</div>
