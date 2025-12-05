@@ -72,7 +72,7 @@
 				body: formData,
 				mode: 'no-cors'
 			});
-			window.location.href = '/thank-you';
+			window.location.href = '/thank-you.html';
 		} catch {
 			error = 'Something went wrong. Please try again.';
 			submitting = false;
