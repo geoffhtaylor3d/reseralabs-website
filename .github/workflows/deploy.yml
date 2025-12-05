@@ -22,6 +22,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Sync EmailOctopus fields
+        run: bun run scripts/sync-emailoctopus.ts
+        env:
+          EMAILOCTOPUS_API_KEY: ${{ secrets.EMAILOCTOPUS_API_KEY }}
+          EMAILOCTOPUS_LIST_ID: ${{ secrets.EMAILOCTOPUS_LIST_ID }}
+
       - name: Build
         run: bun run build
 

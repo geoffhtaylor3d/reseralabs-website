@@ -1,0 +1,64 @@
+{
+  "listId": "59f2d2e0-d1f5-11f0-815f-b747998a6f06",
+  "fields": [
+    {
+      "tag": "FirstName",
+      "label": "First name",
+      "type": "text",
+      "choices": null
+    },
+    {
+      "tag": "LastName",
+      "label": "Last name",
+      "type": "text",
+      "choices": null
+    },
+    {
+      "tag": "Company",
+      "label": "Company",
+      "type": "text",
+      "choices": null
+    },
+    {
+      "tag": "OrganizationType",
+      "label": "Organization Type",
+      "type": "choice_single",
+      "choices": [
+        "City Government",
+        "County Government",
+        "National/Federal Government",
+        "Education",
+        "Nonprofit/NGO",
+        "Private/Business"
+      ]
+    },
+    {
+      "tag": "Industry",
+      "label": "Industry",
+      "type": "choice_single",
+      "choices": [
+        "AEC",
+        "Defense",
+        "Electric & Gas",
+        "Emergency Management",
+        "Real Estate",
+        "Technology"
+      ]
+    },
+    {
+      "tag": "JobTitle",
+      "label": "Job Title",
+      "type": "text",
+      "choices": null
+    },
+    {
+      "tag": "ContactPermission",
+      "label": "Would you like a ReseraLabs representative to contact you?",
+      "type": "choice_single",
+      "choices": [
+        "Yes, please",
+        "No, thank you"
+      ]
+    }
+  ]
+}

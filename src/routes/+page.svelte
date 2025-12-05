@@ -1,9 +1,26 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import config from '$lib/emailoctopus-config.json';
+	import Dropdown from '$lib/components/Dropdown.svelte';
 
 	let mounted = $state(false);
 	let mouseX = $state(0);
 	let mouseY = $state(0);
+	let showModal = $state(false);
+	
+	let email = $state('');
+	let firstName = $state('');
+	let lastName = $state('');
+	let company = $state('');
+	let jobTitle = $state('');
+	let organizationType = $state('');
+	let industry = $state('');
+	let contactPermission = $state('');
+	let submitting = $state(false);
+	let error = $state('');
+
+	const orgTypes = config.fields.find(f => f.tag === 'OrganizationType')?.choices || [];
+	const industries = config.fields.find(f => f.tag === 'Industry')?.choices || [];
 
 	onMount(() => {
 		mounted = true;
@@ -12,10 +29,55 @@
 			mouseX = e.clientX;
 			mouseY = e.clientY;
 		};
+
+		const handleKeydown = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') showModal = false;
+		};
 		
 		window.addEventListener('mousemove', handleMouseMove);
-		return () => window.removeEventListener('mousemove', handleMouseMove);
+		window.addEventListener('keydown', handleKeydown);
+		return () => {
+			window.removeEventListener('mousemove', handleMouseMove);
+			window.removeEventListener('keydown', handleKeydown);
+		};
 	});
+
+	function openModal() {
+		showModal = true;
+	}
+
+	function closeModal() {
+		showModal = false;
+	}
+
+	async function handleSubmit(e: Event) {
+		e.preventDefault();
+		submitting = true;
+		error = '';
+
+		const formData = new FormData();
+		formData.append('field_0', email);
+		formData.append('field_1', firstName);
+		formData.append('field_2', lastName);
+		formData.append('field_3', company);
+		formData.append('field_4', organizationType);
+		formData.append('field_5', industry);
+		formData.append('field_6', jobTitle);
+		formData.append('field_7', contactPermission);
+		formData.append('hpc4b27113-d1f5-11f0-815f-b747998a6f06', '');
+
+		try {
+			await fetch(`https://eocampaign1.com/form/${config.listId}`, {
+				method: 'POST',
+				body: formData,
+				mode: 'no-cors'
+			});
+			window.location.href = '/thank-you';
+		} catch {
+			error = 'Something went wrong. Please try again.';
+			submitting = false;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -79,26 +141,24 @@
 		</p>
 
 		<div 
-			class="mt-16 transition-all duration-1000 delay-500 ease-out"
+			class="mt-12 transition-all duration-1000 delay-500 ease-out"
 			class:opacity-0={!mounted}
 			class:translate-y-8={!mounted}
 			class:opacity-100={mounted}
 			class:translate-y-0={mounted}
 		>
-			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-				<div class="group relative">
-					<div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
-					<a 
-						href="mailto:josh.budinger@reseralabs.com" 
-						class="relative flex items-center gap-2 px-8 py-4 bg-zinc-950 rounded-lg font-medium text-white hover:bg-zinc-900 transition-colors"
-					>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-						</svg>
-						Get Notified
-					</a>
-				</div>
+			<div class="group relative inline-block">
+				<div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
+				<button
+					onclick={openModal}
+					class="relative flex items-center gap-2 px-8 py-4 bg-zinc-950 rounded-lg font-medium text-white hover:bg-zinc-900 transition-colors"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+						<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+						<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+					</svg>
+					Get Notified
+				</button>
 			</div>
 		</div>
 
@@ -142,10 +202,164 @@
 	</main>
 
 	<footer 
-		class="absolute bottom-8 text-center text-zinc-600 text-sm transition-all duration-1000 delay-1000 ease-out"
+		class="absolute bottom-8 text-center text-sm transition-all duration-1000 delay-1000 ease-out"
 		class:opacity-0={!mounted}
 		class:opacity-100={mounted}
 	>
-		<p>&copy; {new Date().getFullYear()} ReseraLabs. All rights reserved.</p>
+		<p class="text-zinc-600">&copy; {new Date().getFullYear()} ReseraLabs. All rights reserved.</p>
+		<div class="mt-2 flex justify-center gap-4">
+			<a href="/privacy" class="text-zinc-500 hover:text-zinc-300 transition-colors">Privacy</a>
+			<a href="/terms" class="text-zinc-500 hover:text-zinc-300 transition-colors">Terms</a>
+		</div>
 	</footer>
 </div>
+
+{#if showModal}
+	<div 
+		class="fixed inset-0 z-50 flex items-center justify-center p-4"
+		role="dialog"
+		aria-modal="true"
+	>
+		<div 
+			class="absolute inset-0 bg-black/80 backdrop-blur-sm"
+			onclick={closeModal}
+			onkeydown={(e) => e.key === 'Enter' && closeModal()}
+			role="button"
+			tabindex="0"
+			aria-label="Close modal"
+		></div>
+		
+		<div class="relative w-full max-w-lg transform transition-all">
+			<div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 rounded-2xl blur-lg opacity-40"></div>
+			
+			<div class="relative bg-zinc-950 border border-zinc-800 rounded-2xl p-8">
+				<button
+					onclick={closeModal}
+					class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors"
+					aria-label="Close"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+
+				<h2 class="text-2xl font-bold text-white mb-2">Stay in the loop</h2>
+				<p class="text-zinc-400 mb-6">Be the first to know when we launch.</p>
+
+				<form onsubmit={handleSubmit} class="space-y-4">
+					<div class="grid grid-cols-2 gap-4">
+						<div>
+							<label for="firstName" class="block text-sm text-zinc-400 mb-1.5">First name<span class="text-red-400/70 ml-0.5">*</span></label>
+							<input
+								id="firstName"
+								type="text"
+								bind:value={firstName}
+								required
+								class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+							/>
+						</div>
+						<div>
+							<label for="lastName" class="block text-sm text-zinc-400 mb-1.5">Last name<span class="text-red-400/70 ml-0.5">*</span></label>
+							<input
+								id="lastName"
+								type="text"
+								bind:value={lastName}
+								required
+								class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+							/>
+						</div>
+					</div>
+					
+					<div>
+						<label for="email" class="block text-sm text-zinc-400 mb-1.5">Email address<span class="text-red-400/70 ml-0.5">*</span></label>
+						<input
+							id="email"
+							type="email"
+							bind:value={email}
+							required
+							class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+						/>
+					</div>
+
+					<div>
+						<label for="company" class="block text-sm text-zinc-400 mb-1.5">Company<span class="text-red-400/70 ml-0.5">*</span></label>
+						<input
+							id="company"
+							type="text"
+							bind:value={company}
+							required
+							class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+						/>
+					</div>
+
+					<div>
+						<label for="jobTitle" class="block text-sm text-zinc-400 mb-1.5">Job Title<span class="text-red-400/70 ml-0.5">*</span></label>
+						<input
+							id="jobTitle"
+							type="text"
+							bind:value={jobTitle}
+							required
+							class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+						/>
+					</div>
+
+					<Dropdown
+						label="Organization Type"
+						placeholder="Select organization type"
+						options={orgTypes}
+						value={organizationType}
+						onchange={(v) => organizationType = v}
+						required
+					/>
+
+					<Dropdown
+						label="Industry"
+						placeholder="Select industry"
+						options={industries}
+						value={industry}
+						onchange={(v) => industry = v}
+						required
+					/>
+
+					<Dropdown
+						label="Would you like us to contact you?"
+						placeholder="Select an option"
+						options={['Yes, please', 'No, thank you']}
+						value={contactPermission}
+						onchange={(v) => contactPermission = v}
+						required
+					/>
+
+					{#if error}
+						<p class="text-red-400 text-sm">{error}</p>
+					{/if}
+
+					<div class="pt-2">
+						<div class="group relative">
+							<div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
+							<button
+								type="submit"
+								disabled={submitting}
+								class="relative w-full flex items-center justify-center gap-2 px-8 py-4 bg-zinc-950 rounded-lg font-medium text-white hover:bg-zinc-900 transition-colors disabled:opacity-50"
+							>
+								{#if submitting}
+									<svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+										<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+										<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									</svg>
+									Subscribing...
+								{:else}
+									Get Notified
+								{/if}
+							</button>
+						</div>
+					</div>
+
+					<p class="text-xs text-zinc-500 text-center pt-2">
+						By subscribing, you agree to our <a href="/privacy" class="text-indigo-400 hover:underline">Privacy Policy</a> and <a href="/terms" class="text-indigo-400 hover:underline">Terms</a>.
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+{/if}
