@@ -56,7 +56,7 @@
 			</ul>
 
 			<h2 class="text-xl font-semibold text-white mt-8">5. Contact</h2>
-			<p>For privacy-related inquiries, contact us at <a href="mailto:josh.budinger@reseralabs.com" class="text-indigo-400 hover:text-indigo-300">josh.budinger@reseralabs.com</a></p>
+			<p>For privacy-related inquiries, contact us at <a href="mailto:contact@reseralabs.com" class="text-indigo-400 hover:text-indigo-300">contact@reseralabs.com</a></p>
 		</div>
 	</div>
 </div>

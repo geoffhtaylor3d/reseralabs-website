@@ -51,7 +51,7 @@
 			<p>We reserve the right to modify these terms at any time. Continued use of the website constitutes acceptance of any changes.</p>
 
 			<h2 class="text-xl font-semibold text-white mt-8">8. Contact</h2>
-			<p>For questions about these terms, contact us at <a href="mailto:josh.budinger@reseralabs.com" class="text-indigo-400 hover:text-indigo-300">josh.budinger@reseralabs.com</a></p>
+			<p>For questions about these terms, contact us at <a href="mailto:contact@reseralabs.com" class="text-indigo-400 hover:text-indigo-300">contact@reseralabs.com</a></p>
 		</div>
 	</div>
 </div>
