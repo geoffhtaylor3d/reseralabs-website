@@ -173,7 +173,7 @@
 	<meta name="description" content="ReseraLabs - Pioneering the next generation of technology. Coming soon." />
 </svelte:head>
 
-<div class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+<div class="relative min-h-screen flex flex-col overflow-hidden">
 	<div 
 		class="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
 		style="background: radial-gradient(600px circle at {mouseX}px {mouseY}px, rgba(99, 102, 241, 0.08), transparent 40%)"
@@ -189,7 +189,7 @@
 		<div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
 	</div>
 
-	<main class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+	<main class="relative z-10 text-center px-6 max-w-5xl mx-auto flex-1 flex flex-col justify-center py-20">
 		<div 
 			class="transition-all duration-1000 ease-out"
 			class:opacity-0={!mounted}
@@ -213,8 +213,9 @@
 			class:opacity-100={mounted}
 			class:translate-y-0={mounted}
 		>
-			<span class="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight">
-				<span class="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">Resera</span><span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent animate-gradient">Labs</span>
+			<span class="flex items-center justify-center gap-0 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight">
+				<img src="/reseralabs-icon.png" alt="ReseraLabs" class="h-[84px] sm:h-[116px] md:h-[148px] lg:h-[180px] w-auto" />
+				<span><span class="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">Resera</span><span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent animate-gradient">Labs</span></span>
 			</span>
 		</h1>
 
@@ -290,12 +291,12 @@
 	</main>
 
 	<footer 
-		class="absolute bottom-8 text-center text-sm transition-all duration-1000 delay-1000 ease-out"
+		class="relative z-10 pb-8 pt-12 text-center text-sm transition-all duration-1000 delay-1000 ease-out"
 		class:opacity-0={!mounted}
 		class:opacity-100={mounted}
 	>
 		<p class="text-zinc-600">&copy; {new Date().getFullYear()} ReseraLabs. All rights reserved.</p>
-		<div class="mt-2 flex justify-center gap-4">
+		<div class="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-2 px-4">
 			<a href="/privacy" class="text-zinc-500 hover:text-zinc-300 transition-colors">Privacy</a>
 			<a href="/terms" class="text-zinc-500 hover:text-zinc-300 transition-colors">Terms</a>
 			<button onclick={openContactModal} class="text-zinc-500 hover:text-zinc-300 transition-colors">Contact</button>
