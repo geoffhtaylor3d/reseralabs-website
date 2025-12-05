@@ -1,16 +1,15 @@
 const API_KEY = process.env.EMAILOCTOPUS_API_KEY;
 const LIST_ID = process.env.EMAILOCTOPUS_LIST_ID;
 
-export const handler = async (event) => {
-	const headers = {
-		'Access-Control-Allow-Origin': 'https://reseralabs.com',
-		'Access-Control-Allow-Headers': 'Content-Type',
-		'Access-Control-Allow-Methods': 'POST, OPTIONS',
-		'Content-Type': 'application/json'
-	};
+const corsHeaders = {
+	'Access-Control-Allow-Origin': 'https://reseralabs.com',
+	'Access-Control-Allow-Headers': 'Content-Type',
+	'Access-Control-Allow-Methods': 'POST, OPTIONS'
+};
 
+export const handler = async (event) => {
 	if (event.requestContext?.http?.method === 'OPTIONS') {
-		return { statusCode: 200, headers, body: '' };
+		return { statusCode: 200, headers: corsHeaders, body: '' };
 	}
 
 	try {
@@ -33,29 +32,33 @@ export const handler = async (event) => {
 					Industry: body.industry,
 					ContactPermission: body.contactPermission
 				},
-				status: 'SUBSCRIBED'
+				status: 'subscribed'
 			})
 		});
 
 		const data = await res.json();
 
 		if (!res.ok) {
+			let errorMessage = data.error?.message || 'Subscription failed';
+			if (res.status === 409) {
+				errorMessage = 'This email is already subscribed.';
+			}
 			return {
 				statusCode: res.status,
-				headers,
-				body: JSON.stringify({ error: data.error?.message || 'Subscription failed' })
+				headers: corsHeaders,
+				body: JSON.stringify({ error: errorMessage })
 			};
 		}
 
 		return {
 			statusCode: 200,
-			headers,
+			headers: corsHeaders,
 			body: JSON.stringify({ success: true })
 		};
 	} catch (err) {
 		return {
 			statusCode: 500,
-			headers,
+			headers: corsHeaders,
 			body: JSON.stringify({ error: 'Internal server error' })
 		};
 	}
