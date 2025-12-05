@@ -30,15 +30,9 @@
 			mouseY = e.clientY;
 		};
 
-		const handleKeydown = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') showModal = false;
-		};
-		
 		window.addEventListener('mousemove', handleMouseMove);
-		window.addEventListener('keydown', handleKeydown);
 		return () => {
 			window.removeEventListener('mousemove', handleMouseMove);
-			window.removeEventListener('keydown', handleKeydown);
 		};
 	});
 
@@ -229,11 +223,6 @@
 	>
 		<div 
 			class="absolute inset-0 bg-black/80 backdrop-blur-sm"
-			onclick={closeModal}
-			onkeydown={(e) => e.key === 'Enter' && closeModal()}
-			role="button"
-			tabindex="0"
-			aria-label="Close modal"
 		></div>
 		
 		<div class="relative w-full max-w-lg transform transition-all">
