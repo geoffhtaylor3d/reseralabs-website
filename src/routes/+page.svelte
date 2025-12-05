@@ -55,23 +55,30 @@
 		submitting = true;
 		error = '';
 
-		const formData = new FormData();
-		formData.append('field_0', email);
-		formData.append('field_1', firstName);
-		formData.append('field_2', lastName);
-		formData.append('field_3', company);
-		formData.append('field_4', organizationType);
-		formData.append('field_5', industry);
-		formData.append('field_6', jobTitle);
-		formData.append('field_7', contactPermission);
-		formData.append('hpc4b27113-d1f5-11f0-815f-b747998a6f06', '');
-
 		try {
-			await fetch(`https://eocampaign1.com/form/${config.listId}`, {
+			const res = await fetch(import.meta.env.VITE_SUBSCRIBE_API_URL, {
 				method: 'POST',
-				body: formData,
-				mode: 'no-cors'
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					email,
+					firstName,
+					lastName,
+					company,
+					jobTitle,
+					organizationType,
+					industry,
+					contactPermission
+				})
 			});
+
+			const data = await res.json();
+
+			if (!res.ok) {
+				error = data.error || 'Something went wrong. Please try again.';
+				submitting = false;
+				return;
+			}
+
 			window.location.href = '/thank-you.html';
 		} catch {
 			error = 'Something went wrong. Please try again.';

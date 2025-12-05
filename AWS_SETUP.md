@@ -164,7 +164,44 @@ Go to your repo **Settings → Secrets and variables → Actions**
 | `S3_BUCKET_NAME` | `reseralabs-website` |
 | `CLOUDFRONT_DISTRIBUTION_ID` | `E1234567890ABC` |
 
-## 7. Custom Domain (Optional)
+## 7. Lambda for Email Subscription
+
+### Create the Lambda Function
+
+1. Go to **Lambda → Create function**
+2. Function name: `reseralabs-subscribe`
+3. Runtime: **Node.js 20.x**
+4. Architecture: **arm64** (cheaper)
+5. Click **Create function**
+
+6. In the **Code** tab, copy the contents of `lambda/subscribe.js` from this repo
+
+7. Go to **Configuration → Environment variables**, add:
+   - `EMAILOCTOPUS_API_KEY`: Your EmailOctopus API key
+   - `EMAILOCTOPUS_LIST_ID`: `59f2d2e0-d1f5-11f0-815f-b747998a6f06`
+
+8. Go to **Configuration → General configuration**, set timeout to **10 seconds**
+
+### Create Function URL (simpler than API Gateway)
+
+1. Go to **Configuration → Function URL**
+2. Click **Create function URL**
+3. Auth type: **NONE**
+4. Configure CORS:
+   - Allow origin: `https://reseralabs.com`
+   - Allow methods: `POST`
+   - Allow headers: `Content-Type`
+5. Click **Save**
+
+Copy the **Function URL** (e.g., `https://abc123.lambda-url.us-east-1.on.aws/`)
+
+### Add to GitHub Variables
+
+| Name | Value |
+|------|-------|
+| `SUBSCRIBE_API_URL` | Your Lambda Function URL |
+
+## 8. Custom Domain (Optional)
 
 1. **Request ACM certificate** in **us-east-1**:
    - Go to ACM → Request certificate
