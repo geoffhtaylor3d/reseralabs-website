@@ -217,18 +217,19 @@
 
 {#if showModal}
 	<div 
-		class="fixed inset-0 z-50 flex items-center justify-center p-4"
+		class="fixed inset-0 z-50 overflow-y-auto"
 		role="dialog"
 		aria-modal="true"
 	>
-		<div 
-			class="absolute inset-0 bg-black/80 backdrop-blur-sm"
-		></div>
-		
-		<div class="relative w-full max-w-lg transform transition-all">
-			<div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 rounded-2xl blur-lg opacity-40"></div>
+		<div class="min-h-full flex items-center justify-center p-4">
+			<div 
+				class="fixed inset-0 bg-black/80 backdrop-blur-sm"
+			></div>
 			
-			<div class="relative bg-zinc-950 border border-zinc-800 rounded-2xl p-8">
+			<div class="relative w-full max-w-lg transform transition-all my-8">
+				<div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 rounded-2xl blur-lg opacity-40"></div>
+				
+				<div class="relative bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8">
 				<button
 					onclick={closeModal}
 					class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors"
@@ -355,6 +356,7 @@
 						By subscribing, you agree to our <a href="/privacy" class="text-indigo-400 hover:underline">Privacy Policy</a> and <a href="/terms" class="text-indigo-400 hover:underline">Terms</a>.
 					</p>
 				</form>
+				</div>
 			</div>
 		</div>
 	</div>
