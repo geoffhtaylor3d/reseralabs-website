@@ -109,6 +109,7 @@ The application follows a static-first architecture:
   3. Builds the static site
   4. Deploys to S3 via OIDC authentication (no stored credentials)
   5. Invalidates CloudFront cache
+- **Scheduled Sync** - A separate workflow runs daily at 6am UTC to check for EmailOctopus config changes. If changes are detected, it commits and pushes, which triggers a deploy
 - **Lambda Function URLs** provide simple HTTPS endpoints without API Gateway overhead
 - Form submissions are proxied through Lambda to keep API keys secure
 
