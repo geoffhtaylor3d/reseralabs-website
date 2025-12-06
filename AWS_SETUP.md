@@ -201,12 +201,14 @@ Copy the **Function URL** (e.g., `https://abc123.lambda-url.us-east-1.on.aws/`)
 
 ## 8. Lambda for Contact Form (SES)
 
-### Verify Email in SES
+### Verify Domain in SES
 
 1. Go to **SES → Verified identities → Create identity**
-2. Choose **Email address** and enter `contact@reseralabs.com`
-3. Click the verification link sent to that email
-4. (Optional) Verify your domain for production sending
+2. Choose **Domain** and enter `reseralabs.com`
+3. If using Route 53, check **"Use Route 53"** to auto-create DKIM records
+4. Click **Create identity**
+
+This allows sending from any `@reseralabs.com` address (e.g., `noreply@`, `contact@`).
 
 > **Note:** If your SES account is in sandbox mode, you can only send to verified email addresses. Request production access for sending to any email.
 
