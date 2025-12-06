@@ -104,10 +104,11 @@ The application follows a static-first architecture:
 - **Bun** is used as the package manager and runtime for fast builds
 - **Vite** handles bundling, hot module replacement, and optimizations
 - **GitHub Actions** automates the CI/CD pipeline:
-  1. Syncs EmailOctopus field configuration
-  2. Builds the static site
-  3. Deploys to S3 via OIDC authentication (no stored credentials)
-  4. Invalidates CloudFront cache
+  1. Syncs EmailOctopus field configuration from API
+  2. Commits config back to repo if changed
+  3. Builds the static site
+  4. Deploys to S3 via OIDC authentication (no stored credentials)
+  5. Invalidates CloudFront cache
 - **Lambda Function URLs** provide simple HTTPS endpoints without API Gateway overhead
 - Form submissions are proxied through Lambda to keep API keys secure
 
@@ -146,7 +147,7 @@ The SvelteKit app is organized as follows:
 - **Routes** - Each page is a separate route with its own `+page.svelte`
 - **Components** - Reusable UI components like the custom `Dropdown` for form selects
 - **Modals** - Signup and Contact forms share the same dropdown configuration
-- **Configuration** - EmailOctopus field definitions (org types, industries) are synced from the API at build time and shared across forms
+- **Configuration** - EmailOctopus field definitions (org types, industries) are synced from the API at build time and shared across forms. If the config changes, it's automatically committed back to the repo
 
 ## Environment Variables
 

@@ -7,7 +7,7 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
 
 jobs:
   deploy:
@@ -27,6 +27,18 @@ jobs:
         env:
           EMAILOCTOPUS_API_KEY: ${{ secrets.EMAILOCTOPUS_API_KEY }}
           EMAILOCTOPUS_LIST_ID: ${{ secrets.EMAILOCTOPUS_LIST_ID }}
+
+      - name: Commit EmailOctopus config if changed
+        run: |
+          if git diff --quiet src/lib/emailoctopus-config.json; then
+            echo "No changes to EmailOctopus config"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add src/lib/emailoctopus-config.json
+            git commit -m "Update EmailOctopus config"
+            git push
+          fi
 
       - name: Build
         run: bun run build
