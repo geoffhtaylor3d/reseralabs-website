@@ -70,7 +70,49 @@ Keep **"Block all public access"** enabled (default) - CloudFront will access th
 | 403 | `/index.html` | 200 |
 | 404 | `/index.html` | 200 |
 
-## 5. Create IAM Role for GitHub Actions (OIDC)
+## 5. CloudFront Function for URL Rewriting
+
+CloudFront Functions run at edge locations and handle URL rewriting for clean URLs (e.g., `/investors` → `/investors/index.html`).
+
+### Create the Function
+
+1. Go to **CloudFront → Functions → Create function**
+2. Name: `reseralabs-url-rewrite`
+3. Click **Create function**
+4. Replace the function code with:
+
+```javascript
+function handler(event) {
+    var request = event.request;
+    var uri = request.uri;
+
+    if (uri.endsWith('/')) {
+        request.uri += 'index.html';
+    } else if (!uri.includes('.')) {
+        request.uri += '/index.html';
+    }
+
+    return request;
+}
+```
+
+5. Click **Save changes**
+6. Go to the **Publish** tab and click **Publish function**
+
+### Associate with CloudFront Distribution
+
+1. Go to **CloudFront → Distributions → Your distribution**
+2. Go to the **Behaviors** tab
+3. Select the default behavior (`*`) and click **Edit**
+4. Scroll to **Function associations**
+5. For **Viewer request**, select:
+   - Function type: **CloudFront Functions**
+   - Function ARN/Name: `reseralabs-url-rewrite`
+6. Click **Save changes**
+
+> **Note:** This is a CloudFront Function (runs at edge, <1ms latency), not a Lambda@Edge function. It handles all requests without file extensions by appending `/index.html`, enabling clean URLs for static site routing.
+
+## 6. Create IAM Role for GitHub Actions (OIDC)
 
 ### Create OIDC Identity Provider
 

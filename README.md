@@ -21,6 +21,7 @@ flowchart TB
     subgraph AWS["AWS Cloud"]
         subgraph Edge["Edge Layer"]
             CF[CloudFront CDN]
+            CFF[CloudFront Function]
             R53[Route 53 DNS]
         end
 
@@ -44,6 +45,8 @@ flowchart TB
 
     User -->|HTTPS| R53
     R53 -->|reseralabs.com| CF
+    CF -->|Viewer Request| CFF
+    CFF -->|URL Rewrite| CF
     CF -->|OAC| S3
     User -->|Subscribe API| Lambda1
     User -->|Contact API| Lambda2
@@ -56,6 +59,7 @@ The infrastructure is fully serverless on AWS:
 
 - **Route 53** handles DNS for the `reseralabs.com` domain
 - **CloudFront** serves as the CDN, providing global edge caching and HTTPS termination
+- **CloudFront Function** rewrites URLs at the edge for clean URL routing (e.g., `/investors` → `/investors/index.html`)
 - **S3** stores the static site assets, accessed via Origin Access Control (OAC) - the bucket is not public
 - **Lambda** functions handle form submissions:
   - **Subscribe** - adds contacts to EmailOctopus mailing list with industry segmentation
