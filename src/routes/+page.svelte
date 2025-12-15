@@ -252,7 +252,7 @@
 		</div>
 
 		<div 
-			class="mt-24 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto transition-all duration-1000 delay-700 ease-out"
+			class="mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto transition-all duration-1000 delay-700 ease-out"
 			class:opacity-0={!mounted}
 			class:translate-y-8={!mounted}
 			class:opacity-100={mounted}
@@ -264,8 +264,8 @@
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
 					</svg>
 				</div>
-				<h3 class="text-lg font-semibold text-white mb-2">100x Faster</h3>
-				<p class="text-zinc-500 text-sm">Sub-millisecond queries on petabyte-scale data.</p>
+				<h3 class="text-lg font-semibold text-white mb-2">656x Faster</h3>
+				<p class="text-zinc-500 text-sm">Sub-millisecond queries at any scale.</p>
 			</div>
 
 			<div class="glass rounded-2xl p-6 hover:bg-white/5 transition-colors flex flex-col items-center text-center">
@@ -284,8 +284,18 @@
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
 					</svg>
 				</div>
-				<h3 class="text-lg font-semibold text-white mb-2">GPU Native</h3>
-				<p class="text-zinc-500 text-sm">Built for AI/ML workloads from the ground up.</p>
+				<h3 class="text-lg font-semibold text-white mb-2">90%+ GPU</h3>
+				<p class="text-zinc-500 text-sm">vs 17-43% typical for AI/ML workloads.</p>
+			</div>
+
+			<div class="glass rounded-2xl p-6 hover:bg-white/5 transition-colors flex flex-col items-center text-center">
+				<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-4">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
+				</div>
+				<h3 class="text-lg font-semibold text-white mb-2">99% Less</h3>
+				<p class="text-zinc-500 text-sm">Infrastructure cost reduction.</p>
 			</div>
 		</div>
 	</main>
