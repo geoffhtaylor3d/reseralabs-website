@@ -48,11 +48,10 @@ jobs:
 
       - name: Create extensionless copies for S3
         run: |
-          for file in build/*/index.html; do
-            dir=$(dirname "$file")
+          for dir in build/*/; do
             name=$(basename "$dir")
-            if [ "$name" != "build" ]; then
-              cp "$file" "build/$name"
+            if [ -f "$dir/index.html" ]; then
+              cp "${dir}index.html" "build/${name}"
             fi
           done
 
