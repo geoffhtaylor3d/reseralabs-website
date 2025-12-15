@@ -267,7 +267,7 @@
 						</div>
 						<div>
 							<h3 class="font-semibold text-white mb-1">Architecture, Engineering & Construction</h3>
-							<p class="text-sm text-zinc-400">BIM data, project coordination, field-to-office sync</p>
+							<p class="text-sm text-zinc-400">Large-scale project data, field-to-office workflows</p>
 						</div>
 					</div>
 				</div>
