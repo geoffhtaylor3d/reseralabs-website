@@ -48,11 +48,12 @@ jobs:
 
       - name: Create extensionless copies for S3
         run: |
-          find build -name "index.html" -path "*/*/index.html" | while read file; do
+          for file in build/*/index.html; do
             dir=$(dirname "$file")
-            parent=$(dirname "$dir")
             name=$(basename "$dir")
-            cp "$file" "$parent/$name"
+            if [ "$name" != "build" ]; then
+              cp "$file" "build/$name"
+            fi
           done
 
       - name: Configure AWS credentials
