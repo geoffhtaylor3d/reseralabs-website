@@ -46,15 +46,6 @@ jobs:
           VITE_SUBSCRIBE_API_URL: ${{ vars.SUBSCRIBE_API_URL }}
           VITE_CONTACT_API_URL: ${{ vars.CONTACT_API_URL }}
 
-      - name: Create extensionless copies for S3
-        run: |
-          for dir in build/*/; do
-            name=$(basename "$dir")
-            if [ -f "$dir/index.html" ]; then
-              cp "${dir}index.html" "build/${name}"
-            fi
-          done
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
