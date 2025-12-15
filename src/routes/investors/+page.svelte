@@ -120,7 +120,7 @@
 						<div>
 							<h3 class="text-xl font-semibold text-white mb-2">Our Solution</h3>
 							<p class="text-zinc-400">
-								A unified binary format that replaces expensive databases with intelligent files. Works everywhere: cloud, edge devices, air-gapped environments. No infrastructure required.
+								A proprietary data architecture that replaces expensive databases with intelligent files. Works everywhere: cloud, edge devices, air-gapped environments. No infrastructure required.
 							</p>
 						</div>
 					</div>
@@ -134,7 +134,7 @@
 						<div>
 							<h3 class="text-xl font-semibold text-white mb-2">Competitive Moat</h3>
 							<p class="text-zinc-400">
-								Legacy formats were designed before modern GPUs and CPU architectures. Incumbents face multi-year, expensive rewrites to match our performance. We started with a clean slate.
+								Legacy systems weren't designed for modern compute requirements. Incumbents face multi-year, expensive rewrites to match our performance. Protected by proprietary technology and pending intellectual property.
 							</p>
 						</div>
 					</div>
