@@ -114,13 +114,13 @@
 						<div>
 							<h3 class="text-xl font-semibold text-white mb-2">The Problem</h3>
 							<p class="text-zinc-400">
-								Organizations pay $100K+/year for databases that still deliver 50-200ms queries. Data is fragmented across incompatible formats. AI teams see only 17-43% GPU utilization because data loading is the bottleneck.
+								Organizations pay six figures annually for databases that still deliver tens to hundreds of milliseconds per query. Data is fragmented across incompatible formats. AI teams often see only 17-43% GPU utilization, with data access frequently cited as a primary bottleneck.
 							</p>
 						</div>
 						<div>
 							<h3 class="text-xl font-semibold text-white mb-2">Our Solution</h3>
 							<p class="text-zinc-400">
-								A proprietary data architecture that replaces expensive databases with intelligent files. Works everywhere: cloud, edge devices, air-gapped environments. No infrastructure required.
+								A proprietary data architecture that eliminates the need for traditional database infrastructure. Works everywhere: cloud, edge devices, air-gapped environments. No infrastructure required.
 							</p>
 						</div>
 					</div>
@@ -134,7 +134,7 @@
 						<div>
 							<h3 class="text-xl font-semibold text-white mb-2">Competitive Moat</h3>
 							<p class="text-zinc-400">
-								Legacy systems weren't designed for modern compute requirements. Incumbents face multi-year, expensive rewrites to match our performance.
+								Legacy systems weren't designed for modern compute requirements. Incumbents would face multi-year rewrites to match our performance without breaking compatibility.
 							</p>
 						</div>
 					</div>
@@ -162,9 +162,9 @@
 						<div class="text-zinc-300">vs 17-43% typical</div>
 					</div>
 					<div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
-						<div class="text-3xl font-bold text-purple-400 mb-1">656x</div>
+						<div class="text-3xl font-bold text-purple-400 mb-1">Up to 656x</div>
 						<div class="text-sm text-zinc-500 mb-2">faster queries</div>
-						<div class="text-zinc-300">vs industry-standard libraries</div>
+						<div class="text-zinc-300">on representative workloads</div>
 					</div>
 					<div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
 						<div class="text-3xl font-bold text-pink-400 mb-1">42 hrs</div>

@@ -274,8 +274,8 @@
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
 					</svg>
 				</div>
-				<h3 class="text-lg font-semibold text-white mb-2">656x Faster</h3>
-				<p class="text-zinc-500 text-sm">Sub-millisecond queries at any scale.</p>
+				<h3 class="text-lg font-semibold text-white mb-2">Up to 656x Faster</h3>
+				<p class="text-zinc-500 text-sm">Sub-millisecond queries at scale.</p>
 			</div>
 
 			<div class="glass rounded-2xl p-6 hover:bg-white/5 transition-colors flex flex-col items-center text-center">
@@ -285,7 +285,7 @@
 					</svg>
 				</div>
 				<h3 class="text-lg font-semibold text-white mb-2">No Database</h3>
-				<p class="text-zinc-500 text-sm">Intelligent files replace complex infrastructure.</p>
+				<p class="text-zinc-500 text-sm">Eliminates the need for complex database infrastructure.</p>
 			</div>
 
 			<div class="glass rounded-2xl p-6 hover:bg-white/5 transition-colors flex flex-col items-center text-center">
@@ -295,7 +295,7 @@
 					</svg>
 				</div>
 				<h3 class="text-lg font-semibold text-white mb-2">90%+ GPU</h3>
-				<p class="text-zinc-500 text-sm">vs 17-43% typical for AI/ML workloads.</p>
+				<p class="text-zinc-500 text-sm">Utilization, compared to 17-43% typical in AI/ML.</p>
 			</div>
 
 			<div class="glass rounded-2xl p-6 hover:bg-white/5 transition-colors flex flex-col items-center text-center">
