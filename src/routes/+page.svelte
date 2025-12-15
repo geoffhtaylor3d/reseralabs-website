@@ -226,7 +226,17 @@
 			class:opacity-100={mounted}
 			class:translate-y-0={mounted}
 		>
-			Something <span class="text-white font-medium">big</span> is coming.
+			Data, reduced to what actually <span class="text-white font-medium">matters</span>.
+		</p>
+
+		<p 
+			class="mt-6 text-lg text-zinc-500 max-w-2xl mx-auto transition-all duration-1000 delay-400 ease-out"
+			class:opacity-0={!mounted}
+			class:translate-y-8={!mounted}
+			class:opacity-100={mounted}
+			class:translate-y-0={mounted}
+		>
+			Irreducible data preserves only what is essential for correctness and computation — everything else is overhead.
 		</p>
 
 		<div 
@@ -298,6 +308,16 @@
 				<p class="text-zinc-500 text-sm">Infrastructure cost reduction.</p>
 			</div>
 		</div>
+
+		<p 
+			class="mt-8 text-sm text-zinc-600 max-w-3xl mx-auto text-center transition-all duration-1000 delay-800 ease-out"
+			class:opacity-0={!mounted}
+			class:translate-y-8={!mounted}
+			class:opacity-100={mounted}
+			class:translate-y-0={mounted}
+		>
+			Measured across representative large-scale workloads; performance gains increase as dataset size and complexity grow.
+		</p>
 	</main>
 
 	<footer 

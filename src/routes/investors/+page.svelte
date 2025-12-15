@@ -134,7 +134,7 @@
 						<div>
 							<h3 class="text-xl font-semibold text-white mb-2">Competitive Moat</h3>
 							<p class="text-zinc-400">
-								Legacy systems weren't designed for modern compute requirements. Incumbents face multi-year, expensive rewrites to match our performance. Protected by proprietary technology and pending intellectual property.
+								Legacy systems weren't designed for modern compute requirements. Incumbents face multi-year, expensive rewrites to match our performance.
 							</p>
 						</div>
 					</div>
@@ -181,6 +181,16 @@
 				class:opacity-100={mounted}
 				class:translate-y-0={mounted}
 			>
+				<h2 class="text-3xl font-bold text-white mb-4">Why This Can't Be Retrofitted</h2>
+				<p class="text-zinc-400 mb-12">
+					ReseraLabs is built on assumptions that differ fundamentally from legacy data systems. Retrofitting these capabilities would require breaking long-standing compatibility guarantees across storage, APIs, and execution layers — an impractical path for incumbent platforms.
+				</p>
+
+				<h2 class="text-3xl font-bold text-white mb-4">Intellectual Property</h2>
+				<p class="text-zinc-400 mb-12">
+					ReseraLabs is pursuing patent protection covering core aspects of its data representation and execution model. Additional protection comes from proprietary formats, internal tooling, and accumulated systems know-how.
+				</p>
+
 				<h2 class="text-3xl font-bold text-white mb-8">Target Markets</h2>
 				<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 					<div class="flex gap-4">
@@ -295,7 +305,7 @@
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 								</svg>
 							</div>
-							<p class="text-zinc-300">Edge computing requires efficient formats that work offline.</p>
+							<p class="text-zinc-300">Edge computing requires efficient systems that work offline.</p>
 						</div>
 					</div>
 					<div class="space-y-4">
@@ -334,7 +344,10 @@
 				class:opacity-100={mounted}
 				class:translate-y-0={mounted}
 			>
-				<h2 class="text-3xl font-bold text-white mb-4">Let's Talk</h2>
+				<h2 class="text-3xl font-bold text-white mb-4">Request Investor Materials</h2>
+				<p class="text-zinc-400 mb-4 max-w-xl mx-auto">
+					Built by practitioners with deep experience in large-scale data systems and cloud infrastructure.
+				</p>
 				<p class="text-zinc-400 mb-8 max-w-xl mx-auto">
 					We're looking for investors who understand infrastructure and want to be part of the next platform shift.
 				</p>
@@ -348,7 +361,7 @@
 							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
 							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
 						</svg>
-						Contact Us
+						Request Materials
 					</a>
 				</div>
 			</div>
