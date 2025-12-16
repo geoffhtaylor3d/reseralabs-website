@@ -169,7 +169,7 @@
 </script>
 
 <svelte:head>
-	<title>ReseraLabs | Something Big is Coming</title>
+	<title>ReseraLabs™ | Something Big is Coming</title>
 	<meta name="description" content="ReseraLabs - Pioneering the next generation of technology. Coming soon." />
 </svelte:head>
 
@@ -215,7 +215,7 @@
 		>
 			<span class="flex items-center justify-center gap-0 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight">
 				<img src="/reseralabs-icon.png" alt="ReseraLabs" class="h-[84px] sm:h-[116px] md:h-[148px] lg:h-[180px] w-auto" />
-				<span><span class="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">Resera</span><span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent animate-gradient">Labs</span></span>
+				<span><span class="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">Resera</span><span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent animate-gradient">Labs</span><span class="text-zinc-500 text-lg sm:text-xl md:text-2xl inline-block translate-y-1 sm:translate-y-2 md:translate-y-3 lg:translate-y-4">™</span></span>
 			</span>
 		</h1>
 
@@ -236,7 +236,7 @@
 			class:opacity-100={mounted}
 			class:translate-y-0={mounted}
 		>
-			Irreducible data preserves only what is essential for correctness and computation — everything else is overhead.
+			Irreduce™ data preserves only the essential — everything else is overhead.
 		</p>
 
 		<div 
@@ -325,7 +325,7 @@
 		class:opacity-0={!mounted}
 		class:opacity-100={mounted}
 	>
-		<p class="text-zinc-600">&copy; {new Date().getFullYear()} ReseraLabs. All rights reserved.</p>
+		<p class="text-zinc-600">&copy; {new Date().getFullYear()} ReseraLabs™. All rights reserved.</p>
 		<div class="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-2 px-4">
 			<a href="/privacy" class="text-zinc-500 hover:text-zinc-300 transition-colors">Privacy</a>
 			<a href="/terms" class="text-zinc-500 hover:text-zinc-300 transition-colors">Terms</a>

@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>Investors | ReseraLabs</title>
+	<title>Investors | ReseraLabs™</title>
 	<meta name="description" content="Invest in the future of data. ReseraLabs is revolutionizing petabyte-scale data access with 99% cost reduction and 4.6x faster AI training." />
 </svelte:head>
 
@@ -63,6 +63,12 @@
 				class:opacity-100={mounted}
 				class:translate-y-0={mounted}
 			>
+				<div class="mb-8 flex items-center justify-center gap-1">
+					<img src="/reseralabs-icon.png" alt="ReseraLabs" class="h-12 sm:h-14 w-auto" />
+					<span class="text-3xl sm:text-4xl font-bold tracking-tight">
+						<span class="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">Resera</span><span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">Labs</span><span class="text-zinc-500 text-sm sm:text-base inline-block translate-y-2">™</span>
+					</span>
+				</div>
 				<div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-zinc-400">
 					<span class="relative flex h-2 w-2">
 						<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -100,6 +106,16 @@
 					<div class="text-zinc-400">Query latency at scale</div>
 				</div>
 			</div>
+
+			<p 
+				class="text-center text-lg text-zinc-500 mb-20 transition-all duration-1000 delay-300 ease-out"
+				class:opacity-0={!mounted}
+				class:translate-y-8={!mounted}
+				class:opacity-100={mounted}
+				class:translate-y-0={mounted}
+			>
+				Irreduce™ data preserves only the essential — everything else is overhead.
+			</p>
 
 			<div 
 				class="glass rounded-3xl p-8 sm:p-12 mb-20 transition-all duration-1000 delay-300 ease-out"
@@ -373,7 +389,7 @@
 		class:opacity-0={!mounted}
 		class:opacity-100={mounted}
 	>
-		<p class="text-zinc-600">&copy; {new Date().getFullYear()} ReseraLabs. All rights reserved.</p>
+		<p class="text-zinc-600">&copy; {new Date().getFullYear()} ReseraLabs™. All rights reserved.</p>
 		<div class="mt-2 flex justify-center gap-4">
 			<a href="/privacy" class="text-zinc-500 hover:text-zinc-300 transition-colors">Privacy</a>
 			<a href="/terms" class="text-zinc-500 hover:text-zinc-300 transition-colors">Terms</a>
