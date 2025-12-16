@@ -87,7 +87,7 @@
 			</header>
 
 			<div 
-				class="grid md:grid-cols-3 gap-6 mb-20 transition-all duration-1000 delay-200 ease-out"
+				class="grid md:grid-cols-3 gap-6 mb-12 transition-all duration-1000 delay-200 ease-out"
 				class:opacity-0={!mounted}
 				class:translate-y-8={!mounted}
 				class:opacity-100={mounted}
@@ -108,13 +108,13 @@
 			</div>
 
 			<p 
-				class="text-center text-lg text-zinc-500 mb-20 transition-all duration-1000 delay-300 ease-out"
+				class="text-center text-lg text-zinc-500 mb-12 transition-all duration-1000 delay-300 ease-out"
 				class:opacity-0={!mounted}
 				class:translate-y-8={!mounted}
 				class:opacity-100={mounted}
 				class:translate-y-0={mounted}
 			>
-				Irreduce™ data preserves only the essential — everything else is overhead.
+				Irreduce™. Only the essential — everything else is overhead.
 			</p>
 
 			<div 
@@ -136,7 +136,7 @@
 						<div>
 							<h3 class="text-xl font-semibold text-white mb-2">Our Solution</h3>
 							<p class="text-zinc-400">
-								A proprietary data architecture that eliminates the need for traditional database infrastructure. Works everywhere: cloud, edge devices, air-gapped environments. No infrastructure required.
+								Irreduce™ — a proprietary data architecture that eliminates the need for traditional database infrastructure. Works everywhere: cloud, edge devices, air-gapped environments. No infrastructure required.
 							</p>
 						</div>
 					</div>
@@ -199,7 +199,7 @@
 			>
 				<h2 class="text-3xl font-bold text-white mb-4">Why This Can't Be Retrofitted</h2>
 				<p class="text-zinc-400 mb-12">
-					ReseraLabs is built on assumptions that differ fundamentally from legacy data systems. Retrofitting these capabilities would require breaking long-standing compatibility guarantees across storage, APIs, and execution layers — an impractical path for incumbent platforms.
+					ReseraLabs Irreduce™ is built on assumptions that differ fundamentally from legacy data systems. Retrofitting these capabilities would require breaking long-standing compatibility guarantees across storage, APIs, and execution layers — an impractical path for incumbent platforms.
 				</p>
 
 				<h2 class="text-3xl font-bold text-white mb-4">Intellectual Property</h2>

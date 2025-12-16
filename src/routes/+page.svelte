@@ -236,7 +236,7 @@
 			class:opacity-100={mounted}
 			class:translate-y-0={mounted}
 		>
-			Irreduce™ data preserves only the essential — everything else is overhead.
+			Irreduce™. Only the essential — everything else is overhead.
 		</p>
 
 		<div 
