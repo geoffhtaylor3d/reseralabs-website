@@ -310,7 +310,7 @@
 		</div>
 
 		<p 
-			class="mt-8 text-sm text-zinc-600 max-w-3xl mx-auto text-center transition-all duration-1000 delay-800 ease-out"
+			class="mt-8 text-sm text-zinc-600 mx-auto text-center transition-all duration-1000 delay-800 ease-out"
 			class:opacity-0={!mounted}
 			class:translate-y-8={!mounted}
 			class:opacity-100={mounted}
@@ -321,7 +321,7 @@
 	</main>
 
 	<footer 
-		class="relative z-10 pb-8 pt-12 text-center text-sm transition-all duration-1000 delay-1000 ease-out"
+		class="relative z-10 pb-8 pt-4 text-center text-sm transition-all duration-1000 delay-1000 ease-out"
 		class:opacity-0={!mounted}
 		class:opacity-100={mounted}
 	>
